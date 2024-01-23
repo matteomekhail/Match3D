@@ -40,8 +40,7 @@
                 </div>
 
                 <div>
-                    <div class="rounded-2xl bg-gradient-to-r from-indigo-200 via-red-200 to-purple-300 p-3"
-                        data-card3d="" data-card3d-perspective="1000" data-card3d-full-page-listening="true">
+                    <div class="rounded-2xl bg-gradient-to-r from-indigo-200 via-red-200 to-purple-300 p-3">
                         <img alt="SaaS" class="rounded-lg"
                             src="/images/landing/21478246-Omoi-Customer-Relationship-Management-Dashboard.png" />
                     </div>
