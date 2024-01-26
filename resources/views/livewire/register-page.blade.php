@@ -12,18 +12,17 @@
     <link rel="shortcut icon" href="/images/favicon.ico" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
-    <script src="
-  https://cdn.jsdelivr.net/npm/card3d@2.6.5/dist/card3d.min.js
-"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/card3d@2.6.5/dist/card3d.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
 <body class="overflow-x-hidden bg-base-100 font-body text-sm text-base-content antialiased">
     @include('components.basicNavbar')
-    <!-- DaisyUI Button -->
-    <div class="flex justify-center items-center h-screen">
-        <a href="/afterlogin" class="btn btn-primary">Go to After Login Page</a>
-    </div>
+    @livewire('register-form')
+    @include('components.theme-toggle')
 </body>
 
 </html>
