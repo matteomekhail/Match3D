@@ -22,7 +22,6 @@
 <body class="overflow-x-hidden bg-base-100 font-body text-sm text-base-content antialiased">
     @include('components.basicNavbar')
     @livewire('register-form')
-    @include('components.theme-toggle')
 </body>
 
 </html>

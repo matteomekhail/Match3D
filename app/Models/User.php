@@ -25,6 +25,9 @@ class User extends Authenticatable
         'suburb',
         'postcode',
         'state',
+        'betting_accounts',
+        'self_exclusion',
+        'bankruptcy',
     ];
 
     /**

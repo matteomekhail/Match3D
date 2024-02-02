@@ -17,6 +17,7 @@ class RegisterForm extends Component
 
     public $fullname, $mobile, $email, $password, $confirm_password, $address, $suburb, $postcode, $state;
     public $documentType, $documentFront, $documentBack;
+    public $betting_accounts, $self_exclusion, $bankruptcy;
 
     protected $rules = [
         'fullname' => 'required|min:3',
@@ -30,6 +31,9 @@ class RegisterForm extends Component
         'state' => 'required|in:NSW,VIC,QLD,SA,WA,TAS,ACT,NT',
         'documentFront' => 'required|file|mimes:pdf,jpg,jpeg,png',
         'documentBack' => 'required|file|mimes:pdf,jpg,jpeg,png',
+        'betting_accounts' => 'required|in:yes,no,unsure',
+        'self_exclusion' => 'required|in:yes,no,unsure',
+        'bankruptcy' => 'required|in:yes,no',
     ];
 
     public function mount()
@@ -63,7 +67,7 @@ class RegisterForm extends Component
     private function getValidationRulesForStep()
     {
         $stepRules = [
-            0 => ['fullname', 'mobile', 'email', 'password', 'confirm_password', 'address', 'suburb', 'postcode', 'state'],
+            0 => ['fullname', 'mobile', 'email', 'password', 'confirm_password', 'address', 'suburb', 'postcode', 'state', 'betting_accounts', 'self_exclusion', 'bankruptcy'],
             1 => ['documentFront', 'documentBack'],
         ];
 
@@ -75,7 +79,6 @@ class RegisterForm extends Component
 
     public function createUserAndGoToNextStep()
     {
-        Log::info('ciao');
         $this->validateCurrentStep();
 
         $user = User::create([
@@ -87,6 +90,9 @@ class RegisterForm extends Component
             'suburb' => $this->suburb,
             'postcode' => $this->postcode,
             'state' => $this->state,
+            'betting_accounts' => $this->betting_accounts,
+            'self_exclusion' => $this->self_exclusion,
+            'bankruptcy' => $this->bankruptcy,
         ]);
 
         $this->nextPrev(1);

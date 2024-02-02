@@ -99,13 +99,67 @@
                     <span class="error text-red-500">{{ $message }}</span>
                 @enderror
             </div>
+            <!-- Betting accounts question -->
+<div class="mb-6">
+    <p class="mb-2">Do you or have you had any betting accounts in Australia?</p>
+    <div>
+        <input type="radio" id="betting-yes" name="betting_accounts" value="yes" wire:model="betting_accounts">
+        <label for="betting-yes">Yes</label>
+    </div>
+    <div>
+        <input type="radio" id="betting-no" name="betting_accounts" value="no" wire:model="betting_accounts">
+        <label for="betting-no">No</label>
+    </div>
+    <div>
+        <input type="radio" id="betting-unsure" name="betting_accounts" value="unsure" wire:model="betting_accounts">
+        <label for="betting-unsure">Unsure</label>
+    </div>
+    @error('betting_accounts')
+        <span class="error text-red-500">{{ $message }}</span>
+    @enderror
+</div>
+
+<!-- Self exclusion question -->
+<div class="mb-6">
+    <p class="mb-2">Have you self excluded from any bookmakers?</p>
+    <div>
+        <input type="radio" id="exclusion-yes" name="self_exclusion" value="yes" wire:model="self_exclusion">
+        <label for="exclusion-yes">Yes</label>
+    </div>
+    <div>
+        <input type="radio" id="exclusion-no" name="self_exclusion" value="no" wire:model="self_exclusion">
+        <label for="exclusion-no">No</label>
+    </div>
+    <div>
+        <input type="radio" id="exclusion-unsure" name="self_exclusion" value="unsure" wire:model="self_exclusion">
+        <label for="exclusion-unsure">Unsure</label>
+    </div>
+    @error('self_exclusion')
+        <span class="error text-red-500">{{ $message }}</span>
+    @enderror
+</div>
+
+<!-- Bankruptcy question -->
+<div class="mb-6">
+    <p class="mb-2">Are you currently or have ever been bankrupt?</p>
+    <div>
+        <input type="radio" id="bankruptcy-yes" name="bankruptcy" value="yes" wire:model="bankruptcy">
+        <label for="bankruptcy-yes">Yes</label>
+    </div>
+    <div>
+        <input type="radio" id="bankruptcy-no" name="bankruptcy" value="no" wire:model="bankruptcy">
+        <label for="bankruptcy-no">No</label>
+    </div>
+    @error('bankruptcy')
+        <span class="error text-red-500">{{ $message }}</span>
+    @enderror
+</div>
         </div>
 
         <!-- Step two -->
         <div class="{{ $currentTab === 1 ? 'block' : 'hidden' }}" class="step">
             <div class="bg-green-500 text-white p-6 rounded-lg flex items-center shadow-lg">
-                <span class="text-lg">Congratulations {{ $fullname }}! You are eligible to partner with Matched
-                    Trading! You can continue to step 2 and submit your 100 points ID for verification. </span>
+                <span class="text-lg">Congratulations {{ $fullname }}! <br> You can continue to step 2 and submit your 100 points ID for verification. </span>
             </div>
             <p class="text-md text-gray-700 leading-tight text-center mt-8 mb-5">Please load your documents</p>
 
