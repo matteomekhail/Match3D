@@ -4,12 +4,11 @@
         wire:submit.prevent="handleFormSubmit" id="signUpForm">
         <!-- start step indicators -->
         <div class="form-header flex gap-3 mb-4 text-xs text-center">
-            <!-- Gli indicatori di step cambiano classe in base al valore di $currentTab -->
             <span class="stepIndicator flex-1 pb-8 relative {{ $currentTab >= 0 ? 'active' : '' }}">Account Setup</span>
             <span class="stepIndicator flex-1 pb-8 relative {{ $currentTab >= 1 ? 'active' : '' }}">Documents
                 Setup</span>
-            <span class="stepIndicator flex-1 pb-8 relative {{ $currentTab >= 2 ? 'active' : '' }}">Payment Setup</span>
-            <span class="stepIndicator flex-1 pb-8 relative {{ $currentTab >= 3 ? 'active' : '' }}">Verification</span>
+            <span
+                class="stepIndicator flex-1 pb-8 relative {{ $currentTab === 2 ? 'active finish' : '' }}">Verification</span>
         </div>
         <!-- end step indicators -->
 
@@ -20,7 +19,7 @@
                 <input type="text" placeholder="Full name" name="fullname" wire:model="fullname"
                     class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" />
                 @error('fullname')
-                    <span class="error">{{ $message }}</span>
+                    <span class="error text-red-500">{{ $message }}</span>
                 @enderror
 
             </div>
@@ -28,7 +27,7 @@
                 <input type="text" placeholder="Mobile" name="mobile" wire:model="mobile"
                     class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" />
                 @error('mobile')
-                    <span class="error">{{ $message }}</span>
+                    <span class="error text-red-500">{{ $message }}</span>
                 @enderror
 
             </div>
@@ -36,7 +35,7 @@
                 <input type="email" placeholder="Email Address" name="email" wire:model="email"
                     class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" />
                 @error('email')
-                    <span class="error">{{ $message }}</span>
+                    <span class="error text-red-500">{{ $message }}</span>
                 @enderror
 
             </div>
@@ -44,7 +43,7 @@
                 <input type="password" placeholder="Password" name="password" wire:model="password"
                     class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" />
                 @error('password')
-                    <span class="error">{{ $message }}</span>
+                    <span class="error text-red-500">{{ $message }}</span>
                 @enderror
 
             </div>
@@ -53,30 +52,123 @@
                     wire:model="confirm_password"
                     class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" />
                 @error('confirm_password')
-                    <span class="error">{{ $message }}</span>
+                    <span class="error text-red-500">{{ $message }}</span>
                 @enderror
+            </div>
+            <!-- Address field -->
+            <div class="mb-6">
+                <input type="text" placeholder="Address" name="address" wire:model="address"
+                    class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" />
+                @error('address')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
 
+            <!-- Suburb field -->
+            <div class="mb-6">
+                <input type="text" placeholder="Suburb" name="suburb" wire:model="suburb"
+                    class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" />
+                @error('suburb')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Postcode field -->
+            <div class="mb-6">
+                <input type="text" placeholder="Postcode" name="postcode" wire:model="postcode"
+                    class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" />
+                @error('postcode')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
+            <!-- State field -->
+            <div class="mb-6">
+                <select name="state" wire:model="state"
+                    class="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200">
+                    <option value="">Select a state</option>
+                    <option value="NSW">New South Wales</option>
+                    <option value="VIC">Victoria</option>
+                    <option value="QLD">Queensland</option>
+                    <option value="SA">South Australia</option>
+                    <option value="WA">Western Australia</option>
+                    <option value="TAS">Tasmania</option>
+                    <option value="ACT">Australian Capital Territory</option>
+                    <option value="NT">Northern Territory</option>
+                </select>
+                @error('state')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
             </div>
         </div>
 
         <!-- Step two -->
         <div class="{{ $currentTab === 1 ? 'block' : 'hidden' }}" class="step">
+            <div class="bg-green-500 text-white p-6 rounded-lg flex items-center shadow-lg">
+                <span class="text-lg">Congratulations {{ $fullname }}! You are eligible to partner with Matched
+                    Trading! You can continue to step 2 and submit your 100 points ID for verification. </span>
+            </div>
             <p class="text-md text-gray-700 leading-tight text-center mt-8 mb-5">Please load your documents</p>
+
             <div class="mb-6">
-                <label class="w-full flex flex-col items-center px-6 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white transition-colors duration-200 ease-in-out">
-                    <img src="{{ asset('images/logo/document-scanner-svgrepo-com.svg') }}" class="w-12 h-12 text-blue-500" wire:loading.remove wire:target="document" />
-                    <svg wire:loading wire:target="document" fill="none" class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <label
+                    class="w-full flex flex-col items-center px-6 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white transition-colors duration-200 ease-in-out">
+                    @if ($documentFront)
+                        <img src="{{ $documentFront->temporaryUrl() }}" class="w-12 h-12">
+                    @else
+                        <img src="{{ asset('images/logo/document-scanner-svgrepo-com.svg') }}"
+                            class="w-12 h-12 text-blue-500" wire:loading.remove wire:target="documentFront" />
+                    @endif
+                    <svg wire:loading wire:target="documentFront" fill="none"
+                        class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
                     </svg>
-                    <span class="mt-2 text-base leading-normal text-blue-500">Upload a document</span>
-                    <input type='file' class="hidden" wire:model="document" />
+                    <span class="mt-2 text-base leading-normal text-blue-500">Upload Front of Document</span>
+                    <input type='file' class="hidden" wire:model="documentFront" />
                 </label>
+                @error('documentFront')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label
+                    class="w-full flex flex-col items-center px-6 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white transition-colors duration-200 ease-in-out">
+                    @if ($documentBack)
+                        <img src="{{ $documentBack->temporaryUrl() }}" class="w-12 h-12">
+                    @else
+                        <img src="{{ asset('images/logo/document-scanner-svgrepo-com.svg') }}"
+                            class="w-12 h-12 text-blue-500" wire:loading.remove wire:target="documentBack" />
+                    @endif
+                    <svg wire:loading wire:target="documentBack" fill="none"
+                        class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    <span class="mt-2 text-base leading-normal text-blue-500">Upload Back of Document</span>
+                    <input type='file' class="hidden" wire:model="documentBack" />
+                </label>
+                @error('documentBack')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
             </div>
         </div>
 
         <!-- Step three -->
-        
+        <div class="{{ $currentTab === 2 ? 'block' : 'hidden' }}" class="step">
+            <div class="bg-green-500 text-white p-6 rounded-lg flex items-center shadow-lg">
+                <span class="text-lg">Thanks for submitting your 100 Points ID, our team will verify this information
+                    and contact you </span>
+            </div>
+        </div>
 
         <!-- Previous / Next buttons -->
         <div class="form-footer flex gap-3">
@@ -84,18 +176,21 @@
             <button type="button"
                 class="flex-1 focus:outline-none border border-gray-300 py-2 px-5 rounded-lg shadow-sm text-center text-gray-700 bg-white hover:bg-gray-100 text-lg"
                 wire:click="nextPrev(-1)"
-                style="{{ $currentTab > 0 ? 'display: block;' : 'display: none;' }}">Previous</button>
+                style="{{ $currentTab > 0 && $currentTab < 2 ? 'display: block;' : 'display: none;' }}">Previous</button>
 
-            <!-- Pulsante "Next" -->
+            <!-- Pulsante "Next" per $currentTab === 1 -->
+            <button type="button"
+                class="flex-1 border border-transparent focus:outline-none p-3 rounded-md text-center text-white bg-indigo-600 hover:bg-indigo-700 text-lg"
+                wire:click="createUserAndGoToNextStep"
+                style="{{ $currentTab === 1 ? 'display: block;' : 'display: none;' }}">Submit</button>
+
+            <!-- Pulsante "Next" per $currentTab !== 1 -->
+            @if($currentTab !== 2)
             <button type="button"
                 class="flex-1 border border-transparent focus:outline-none p-3 rounded-md text-center text-white bg-indigo-600 hover:bg-indigo-700 text-lg"
                 wire:click="nextPrev(1)"
-                style="{{ $currentTab < 3 ? 'display: block;' : 'display: none;' }}">Next</button>
-
-            <!-- Pulsante "Submit" -->
-            <button type="submit"
-                class="flex-1 border border-transparent focus:outline-none p-3 rounded-md text-center text-white bg-green-600 hover:bg-green-700 text-lg"
-                style="{{ $currentTab === 3 ? 'display: block;' : 'display: none;' }}">Submit</button>
+                style="{{ $currentTab !== 1 && $currentTab < 3 ? 'display: block;' : 'display: none;' }}">Next</button>
+        @endif
         </div>
         <!-- end previous / next buttons -->
     </form>
@@ -163,9 +258,16 @@
             background-color: #5a67d8;
         }
 
+        #signUpForm .form-header .stepIndicator:last-child:after {
+            display: none;
+        }
 
         #signUpForm input.invalid {
             border: 2px solid #ffaba5;
+        }
+
+        #signUpForm .step {
+            display: none;
         }
     </style>
 </div>

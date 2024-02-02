@@ -4,7 +4,9 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class RegisterForm extends Component
 {
@@ -13,7 +15,8 @@ class RegisterForm extends Component
     public $currentTab = 0;
     public $tabs = ['Account Setup', 'Documents Setup', 'Payment Setup', 'Verification'];
 
-    public $fullname, $mobile, $email, $password, $confirm_password, $document;
+    public $fullname, $mobile, $email, $password, $confirm_password, $address, $suburb, $postcode, $state;
+    public $documentType, $documentFront, $documentBack;
 
     protected $rules = [
         'fullname' => 'required|min:3',
@@ -21,17 +24,19 @@ class RegisterForm extends Component
         'email' => 'required|email|unique:users,email',
         'password' => 'required|min:6',
         'confirm_password' => 'required|same:password',
-        'document' => 'file|mimes:pdf,jpg,jpeg,png', // Aggiungi qui altri tipi di file se necessario
+        'address' => 'required',
+        'suburb' => 'required',
+        'postcode' => 'required|numeric|digits:4',
+        'state' => 'required|in:NSW,VIC,QLD,SA,WA,TAS,ACT,NT',
+        'documentFront' => 'required|file|mimes:pdf,jpg,jpeg,png',
+        'documentBack' => 'required|file|mimes:pdf,jpg,jpeg,png',
     ];
 
     public function mount()
     {
         $this->showTab($this->currentTab);
     }
-    public function render()
-    {
-        return view('livewire.register-form');
-    }
+
     public function showTab($n)
     {
         $this->currentTab = $n;
@@ -39,16 +44,12 @@ class RegisterForm extends Component
 
     public function nextPrev($n)
     {
-        // Solo se si sta avanzando al prossimo step
-        if ($n == 1) {
+        if ($n == 1)
             $this->validateCurrentStep();
-        }
-
         $this->currentTab += $n;
 
-        // Verifica se si è arrivati alla fine dei tab
         if ($this->currentTab >= count($this->tabs)) {
-            $this->submitForm(); // Assicurati che esista questo metodo per gestire il submit
+            $this->submitForm();
             return;
         }
 
@@ -57,30 +58,38 @@ class RegisterForm extends Component
 
     public function validateCurrentStep()
     {
-        $rules = $this->getValidationRulesForStep();
-        $this->validate($rules);
+        $this->validate($this->getValidationRulesForStep());
     }
-
     private function getValidationRulesForStep()
     {
-        // Estrai solo le regole pertinenti per lo step corrente
-        switch ($this->currentTab) {
-            case 0:
-                return [
-                    'fullname' => $this->rules['fullname'],
-                    'mobile' => $this->rules['mobile'],
-                    'email' => $this->rules['email'],
-                    'password' => $this->rules['password'],
-                    'confirm_password' => $this->rules['confirm_password'],
-                ];
-            case 1:
-                return [
-                    'document' => $this->rules['document'],
-                ];
-            // Altri step, se necessario
-            default:
-                return [];
-        }
+        $stepRules = [
+            0 => ['fullname', 'mobile', 'email', 'password', 'confirm_password', 'address', 'suburb', 'postcode', 'state'],
+            1 => ['documentFront', 'documentBack'],
+        ];
+
+        return collect($stepRules[$this->currentTab] ?? [])->reduce(function ($rules, $field) {
+            $rules[$field] = $this->rules[$field];
+            return $rules;
+        }, []);
+    }
+
+    public function createUserAndGoToNextStep()
+    {
+        Log::info('ciao');
+        $this->validateCurrentStep();
+
+        $user = User::create([
+            'name' => $this->fullname,
+            'mobile' => $this->mobile,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
+            'address' => $this->address,
+            'suburb' => $this->suburb,
+            'postcode' => $this->postcode,
+            'state' => $this->state,
+        ]);
+
+        $this->nextPrev(1);
     }
 
     public function handleFormSubmit()
@@ -93,14 +102,9 @@ class RegisterForm extends Component
             $this->submitForm();
         }
     }
-    public function updatedDocument()
-    {
-        // Validiamo il documento appena caricato
-        $this->validate([
-            'document' => 'file|mimes:pdf,jpg,jpeg,png', // Aggiungi qui altri tipi di file se necessario
-        ]);
 
-        // Se la validazione ha successo, procediamo al prossimo step
-        $this->nextPrev(1);
+    public function render()
+    {
+        return view('livewire.register-form');
     }
 }
