@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>SaaS Landing Page</title>
+    <title>Match3D</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <meta content="Saas Landing page" name="description" />
+    <meta content="Match 3D" name="description" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Theme favicon -->

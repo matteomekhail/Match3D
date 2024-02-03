@@ -21,9 +21,8 @@
 <body class="overflow-x-hidden bg-base-100 font-body text-sm text-base-content antialiased">
     @include('components.basicNavbar')
     <!-- DaisyUI Button -->
-    <div class="flex justify-center items-center h-screen">
-        <a href="/afterlogin" class="btn btn-primary">Go to After Login Page</a>
-    </div>
+    @livewire('loginForm')
+    @include('components.footer')
 </body>
 
 </html>

@@ -19,3 +19,5 @@ Route::view('/afterlogin', 'livewire.after-login-page');
 
 Route::view('/login', 'livewire.login-page');
 Route::view('/register', 'livewire.register-page');
+
+route::view('/dashboard', 'livewire.dashboard');
