@@ -25,7 +25,6 @@ class LoginForm extends Component
 
     public function login()
     {
-        Log::info("login fatto");
         try {
             $this->validate();
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -35,7 +34,7 @@ class LoginForm extends Component
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             // Authentication passed...
-            return redirect()->intended('/');
+            return redirect()->intended('/dashboard');
         } else {
             $this->addError('password', 'These credentials do not match our records.');
         }
