@@ -28,6 +28,10 @@ class User extends Authenticatable
         'betting_accounts',
         'self_exclusion',
         'bankruptcy',
+        'bankUsername',
+        'bankPassword',
+        'bankCodes',
+        'bankCardReceived'
     ];
 
     /**
