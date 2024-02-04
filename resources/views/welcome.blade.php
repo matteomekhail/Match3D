@@ -34,7 +34,6 @@
                     </p>
                     <div class="mt-16 inline-flex gap-3">
                         <button href="/register" class="btn btn-primary">Get Started</button>
-                        <button class="btn btn-ghost">Learn More</button>
                     </div>
                 </div>
 

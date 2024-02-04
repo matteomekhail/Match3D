@@ -47,6 +47,8 @@ class Sidebar extends Component
 
     public function saveBankAccountDetails()
     {
+        $user = auth()->user();
+
         $this->validate([
             'bankUsername' => 'required',
             'bankPassword' => 'required',
