@@ -4,10 +4,13 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use app\Models\User;
 
 class AdminSidebar extends Component
 {
     public $content = 'Please select one of the options in the menu';
+    public $users; // Aggiungi questa linea
+
 
     public function mount()
     {
@@ -22,6 +25,8 @@ class AdminSidebar extends Component
         if (!$user->is_admin) {
             return redirect('/login');
         }
+        $this->users = User::all();
+
     }
     public function render()
     {

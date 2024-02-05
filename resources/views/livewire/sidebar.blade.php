@@ -4,59 +4,97 @@
         <img class="w-24 sm:w-32 md:w-48 h-auto ml-0 lg:left-0 lg:mt-10 mt-4 " src='/images/logo/match3dtrading.png'>
         <h1 class="text-2xl pt-10 text-bold text-black"><b>Dashboard</b></h1>
         @if ($content === 'Bank Account Details')
-        <form wire:submit.prevent="saveBankAccountDetails" class="space-y-6">
-            <h2 class="text-lg font-light text-gray-700 mb-4">Please enter the Bank Account Login details</h2>
-            <div class="grid grid-cols-1 gap-6">
+            <form wire:submit.prevent="saveBankAccountDetails" class="space-y-6">
+                <h2 class="text-lg font-light text-gray-700 mb-4">Please enter the Bank Account Login details</h2>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="form-group">
+                        <label for="bankUsername" class="block text-sm font-medium text-gray-700">Bank Username</label>
+                        <input type="text"
+                            class="form-input mt-1 block w-full px-6 py-4 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                            id="bankUsername" wire:model="bankUsername">
+                        @error('bankUsername')
+                            <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700" for="password">Password</label>
+                        <input
+                            class="form-input mt-1 block w-full px-10 py-3 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                            id="password" type="password" wire:model="bankPassword">
+                        @error('bankPassword')
+                            <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <label for="bankUsername" class="block text-sm font-medium text-gray-700">Bank Username</label>
-                    <input type="text" class="form-input mt-1 block w-full px-6 py-4 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" id="bankUsername" wire:model="bankUsername">
-                    @error('bankUsername')
+                    <label class="block text-sm font-medium text-gray-700" for="codes">Any Codes</label>
+                    <input
+                        class="form-input mt-1 block w-full px-4 py-3 rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                        id="codes" type="text" wire:model="bankCodes">
+                    @error('bankCodes')
+                        <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <h2 class="text-lg font-light text-gray-700 mb-4">Have you received your bank card yet?</h2>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-light mb-2">
+                        <input type="radio" wire:model="bankCardReceived" name="option" value="GIVEN_TO_REP">
+                        YES - given to matched trading rep
+                    </label>
+                    <label class="block text-gray-700 text-sm font-light mb-2">
+                        <input type="radio" wire:model="bankCardReceived" name="option" value="WILL_GIVE_TO_REP">
+                        YES - will give to matched trading rep
+                    </label>
+                    <label class="block text-gray-700 text-sm font-light mb-2">
+                        <input type="radio" wire:model="bankCardReceived" name="option" value="ON_THE_WAY"> NOT YET -
+                        Its on the way
+                    </label>
+                    @error('bankCardReceived')
+                        <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                    @enderror
+                </div>
+                <h1> Where would you like to get paid?</h1>
+                <div class="form-group">
+                    <label for="accName" class="block text-sm font-medium text-gray-700">Account Name</label>
+                    <input type="text"
+                        class="form-input mt-1 block w-full px-6 py-4 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                        id="accName" wire:model="accName">
+                    @error('accName')
                         <span class="text-red-500 text-xs italic">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                    <label class="block text-sm font-medium text-gray-700" for="password">Password</label>
-                    <input class="form-input mt-1 block w-full px-10 py-3 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" id="password" type="password" wire:model="bankPassword">
-                    @error('bankPassword')
+                    <label for="bsb" class="block text-sm font-medium text-gray-700">BSB</label>
+                    <input type="text"
+                        class="form-input mt-1 block w-full px-6 py-4 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                        id="bsb" wire:model="bsb">
+                    @error('bsb')
                         <span class="text-red-500 text-xs italic">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="block text-sm font-medium text-gray-700" for="codes">Any Codes</label>
-                <input class="form-input mt-1 block w-full px-4 py-3 rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" id="codes" type="text" wire:model="bankCodes">
-                @error('bankCodes')
-                    <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                @enderror
-            </div>
+                <div class="form-group">
+                    <label for="accNo" class="block text-sm font-medium text-gray-700">Account Number</label>
+                    <input type="text"
+                        class="form-input mt-1 block w-full px-6 py-4 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                        id="accNo" wire:model="accNo">
+                    @error('accNo')
+                        <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <h2 class="text-lg font-light text-gray-700 mb-4">Have you received your bank card yet?</h2>
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-light mb-2">
-                    <input type="radio" wire:model="bankCardReceived" name="option" value="GIVEN_TO_REP">
-                    YES - given to matched trading rep
-                </label>
-                <label class="block text-gray-700 text-sm font-light mb-2">
-                    <input type="radio" wire:model="bankCardReceived" name="option" value="WILL_GIVE_TO_REP">
-                    YES - will give to matched trading rep
-                </label>
-                <label class="block text-gray-700 text-sm font-light mb-2">
-                    <input type="radio" wire:model="bankCardReceived" name="option" value="ON_THE_WAY"> NOT YET -
-                    Its on the way
-                </label>
-                @error('bankCardReceived')
-                    <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="flex items-center justify-center">
-                <button wire:click="saveBankAccountDetails" class="btn btn-primary bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold py-3 px-6 rounded-lg" type="submit">
-                    Save The Bank Details
-                </button>
-            </div>
-        </form>
+                <div class="flex items-center justify-center">
+                    <button wire:click="saveBankAccountDetails"
+                        class="btn btn-primary bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold py-3 px-6 rounded-lg"
+                        type="submit">
+                        Save The Bank Details
+                    </button>
+                </div>
+            </form>
         @elseif ($content === 'Profile Settings')
             <!-- Profile Settings Form -->
             <form wire:submit.prevent="updateProfile" class="space-y-6">
@@ -114,7 +152,8 @@
                 </div>
 
                 <div class="flex justify-center">
-                    <button type="submit" class="btn btn-primary bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold py-3 px-4 rounded-lg">
+                    <button type="submit"
+                        class="btn btn-primary bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold py-3 px-4 rounded-lg">
                         Update Profile
                     </button>
                 </div>
