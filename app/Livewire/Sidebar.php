@@ -18,6 +18,9 @@ class Sidebar extends Component
 
     public function mount()
     {
+        if (!auth()->check()) {
+            return redirect('/login');
+        }
         // Trova l'utente corrente
         $user = auth()->user();
 
@@ -47,8 +50,6 @@ class Sidebar extends Component
 
     public function saveBankAccountDetails()
     {
-        $user = auth()->user();
-
         $this->validate([
             'bankUsername' => 'required',
             'bankPassword' => 'required',

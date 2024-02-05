@@ -8,9 +8,9 @@
             <h2 class="text-lg font-light text-gray-700 mb-4">Please enter the Bank Account Login details</h2>
             <div class="grid grid-cols-1 gap-6">
                 <div class="form-group">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" class="form-input mt-1 block w-full px-6 py-4 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" id="email" wire:model="email">
-                    @error('email')
+                    <label for="bankUsername" class="block text-sm font-medium text-gray-700">Bank Username</label>
+                    <input type="text" class="form-input mt-1 block w-full px-6 py-4 text-lg rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" id="bankUsername" wire:model="bankUsername">
+                    @error('bankUsername')
                         <span class="text-red-500 text-xs italic">{{ $message }}</span>
                     @enderror
                 </div>
