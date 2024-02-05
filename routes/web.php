@@ -22,4 +22,6 @@ Route::view('/register', 'livewire.register-page');
 
 route::view('/dashboard', 'livewire.dashboard');
 
-route::view('/admin', 'livewire.dashboard-admin');
+route::view('/admin', 'livewire.admin-login-page');
+
+route::view('/dashboardAdmin', 'livewire.dashboard-admin');

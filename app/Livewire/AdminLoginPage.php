@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class SidebarAdmin extends Component
+class AdminLoginPage extends Component
 {
     public function render()
     {
-        return view('livewire.sidebar-admin');
+        return view('livewire.admin-login-page');
     }
 }
