@@ -53,18 +53,26 @@
                                     @if ($user->documentFront)
                                         <?php
                                         $documentFront = base64_encode($user->documentFront);
-                                        $info = getimagesizefromstring($user->documentFront);
+                                        $infoFront = getimagesizefromstring($user->documentFront);
                                         ?>
-                                        <a href="data:{{ $info['mime'] }};base64,{{ $documentFront }}" download="documentFront">Download</a>
+                                        @if ($infoFront)
+                                            <a href="data:{{ $infoFront['mime'] }};base64,{{ $documentFront }}" download="documentFront">Download</a>
+                                        @else
+                                            <span>Invalid image data</span>
+                                        @endif
                                     @endif
                                 </td> <!-- New column -->
                                 <td>
                                     @if ($user->documentBack)
                                         <?php
                                         $documentBack = base64_encode($user->documentBack);
-                                        $info = getimagesizefromstring($user->documentBack);
+                                        $infoBack = getimagesizefromstring($user->documentBack);
                                         ?>
-                                        <a href="data:{{ $info['mime'] }};base64,{{ $documentBack }}" download="documentBack">Download</a>
+                                        @if ($infoBack)
+                                            <a href="data:{{ $infoBack['mime'] }};base64,{{ $documentBack }}" download="documentBack">Download</a>
+                                        @else
+                                            <span>Invalid image data</span>
+                                        @endif
                                     @endif
                                 </td> <!-- New column -->
                             </tr>

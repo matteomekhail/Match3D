@@ -31,7 +31,7 @@ class AdminSidebar extends Component
     }
     public function render()
     {
-        return view('livewire.Admin-Sidebar');
+        return view('livewire.admin-sidebar');
     }
 
     public function logout()
