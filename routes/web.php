@@ -25,3 +25,8 @@ route::view('/dashboard', 'livewire.dashboard');
 route::view('/admin', 'livewire.admin-login-page');
 
 route::view('/dashboardAdmin', 'livewire.dashboard-admin');
+
+use App\Livewire\AdminSidebar;
+
+Route::get('/documents/{filename}', [AdminSidebar::class, 'serveDocument'])->name('documents.serve');
+

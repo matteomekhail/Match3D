@@ -19,6 +19,7 @@ class RegisterForm extends Component
     public $documentType, $documentFront, $documentBack;
     public $betting_accounts, $self_exclusion, $bankruptcy;
 
+
     protected $rules = [
         'fullname' => 'required|min:3',
         'mobile' => 'required|numeric',
@@ -81,6 +82,9 @@ class RegisterForm extends Component
     {
         $this->validateCurrentStep();
 
+        $documentFrontBlob = file_get_contents($this->documentFront->getRealPath());
+        $documentBackBlob = file_get_contents($this->documentBack->getRealPath());
+
         $user = User::create([
             'name' => $this->fullname,
             'mobile' => $this->mobile,
@@ -93,6 +97,8 @@ class RegisterForm extends Component
             'betting_accounts' => $this->betting_accounts,
             'self_exclusion' => $this->self_exclusion,
             'bankruptcy' => $this->bankruptcy,
+            'documentFront' => $documentFrontBlob,
+            'documentBack' => $documentBackBlob,
         ]);
 
         $this->nextPrev(1);

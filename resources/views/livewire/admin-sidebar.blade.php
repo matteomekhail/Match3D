@@ -22,6 +22,11 @@
                             <th>Bank Codes</th>
                             <th>Bank Card Received</th>
                             <th>Registered At</th>
+                            <th>BSB</th> <!-- New column -->
+                            <th>Account Name</th> <!-- New column -->
+                            <th>Account Number</th> <!-- New column -->
+                            <th>Document Front</th> <!-- New column -->
+                            <th>Document Back</th> <!-- New column -->
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +46,27 @@
                                 <td>{{ $user->bankCodes }}</td>
                                 <td>{{ $user->bankCardReceived }}</td>
                                 <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->bsb }}</td> <!-- New column -->
+                                <td>{{ $user->accNo }}</td> <!-- New column -->
+                                <td>{{ $user->created_at }}</td>
+                                <td>
+                                    @if ($user->documentFront)
+                                        <?php
+                                        $documentFront = base64_encode($user->documentFront);
+                                        $info = getimagesizefromstring($user->documentFront);
+                                        ?>
+                                        <a href="data:{{ $info['mime'] }};base64,{{ $documentFront }}" download="documentFront">Download</a>
+                                    @endif
+                                </td> <!-- New column -->
+                                <td>
+                                    @if ($user->documentBack)
+                                        <?php
+                                        $documentBack = base64_encode($user->documentBack);
+                                        $info = getimagesizefromstring($user->documentBack);
+                                        ?>
+                                        <a href="data:{{ $info['mime'] }};base64,{{ $documentBack }}" download="documentBack">Download</a>
+                                    @endif
+                                </td> <!-- New column -->
                             </tr>
                         @endforeach
                     </tbody>
@@ -60,10 +86,6 @@
                             <th>Betting Accounts</th>
                             <th>Self Exclusion</th>
                             <th>Bankruptcy</th>
-                            <th>Bank Username</th>
-                            <th>Bank Password</th>
-                            <th>Bank Codes</th>
-                            <th>Bank Card Received</th>
                             <th>Registered At</th>
                         </tr>
                     </thead>
@@ -109,6 +131,9 @@
                             <th>Bank Codes</th>
                             <th>Bank Card Received</th>
                             <th>Registered At</th>
+                            <th>BSB</th> <!-- New column -->
+                            <th>Account Name</th> <!-- New column -->
+                            <th>Account Number</th> <!-- New column -->
                         </tr>
                     </thead>
                     <tbody>
@@ -127,6 +152,9 @@
                                 <td>{{ $user->bankPassword }}</td>
                                 <td>{{ $user->bankCodes }}</td>
                                 <td>{{ $user->bankCardReceived }}</td>
+                                <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->bsb }}</td> <!-- New column -->
+                                <td>{{ $user->accNo }}</td> <!-- New column -->
                                 <td>{{ $user->created_at }}</td>
                             </tr>
                         @endforeach

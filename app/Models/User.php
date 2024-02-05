@@ -31,7 +31,12 @@ class User extends Authenticatable
         'bankUsername',
         'bankPassword',
         'bankCodes',
-        'bankCardReceived'
+        'bankCardReceived',
+        'accName', // new
+        'bsb', // new
+        'accNo', // new
+        'documentFront', // new
+        'documentBack', // new
     ];
 
     /**

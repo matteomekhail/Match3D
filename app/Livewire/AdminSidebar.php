@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use app\Models\User;
+use Illuminate\Support\Facades\Storage; // Importa la facciata Storage
 
 class AdminSidebar extends Component
 {
@@ -41,5 +42,10 @@ class AdminSidebar extends Component
     public function setContent($content)
     {
         $this->content = $content;
+    }
+    // Aggiungi questo metodo
+    public function serveDocument($filename)
+    {
+    return Storage::disk('local')->response($filename);
     }
 }
