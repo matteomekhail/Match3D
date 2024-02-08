@@ -50,29 +50,19 @@
                                 <td>{{ $user->accNo }}</td> <!-- New column -->
                                 <td>{{ $user->created_at }}</td>
                                 <td>
-                                    @if ($user->documentFront)
-                                        <?php
-                                        $documentFront = base64_encode($user->documentFront);
-                                        $infoFront = getimagesizefromstring($user->documentFront);
-                                        ?>
-                                        @if ($infoFront)
-                                            <a href="data:{{ $infoFront['mime'] }};base64,{{ $documentFront }}" download="documentFront">Download</a>
-                                        @else
-                                            <span>Invalid image data</span>
-                                        @endif
+                                    @php
+                                        $documentFrontData = $this->getDocumentFrontData($user->documentFront);
+                                    @endphp
+                                    @if ($documentFrontData)
+                                        <a href="data:{{ $documentFrontData['mime'] }};base64,{{ $documentFrontData['data'] }}" download="documentFront">Download Front</a>
                                     @endif
                                 </td> <!-- New column -->
                                 <td>
-                                    @if ($user->documentBack)
-                                        <?php
-                                        $documentBack = base64_encode($user->documentBack);
-                                        $infoBack = getimagesizefromstring($user->documentBack);
-                                        ?>
-                                        @if ($infoBack)
-                                            <a href="data:{{ $infoBack['mime'] }};base64,{{ $documentBack }}" download="documentBack">Download</a>
-                                        @else
-                                            <span>Invalid image data</span>
-                                        @endif
+                                    @php
+                                        $documentBackData = $this->getDocumentBackData($user->documentBack);
+                                    @endphp
+                                    @if ($documentBackData)
+                                        <a href="data:{{ $documentBackData['mime'] }};base64,{{ $documentBackData['data'] }}" download="documentBack">Download Back</a>
                                     @endif
                                 </td> <!-- New column -->
                             </tr>

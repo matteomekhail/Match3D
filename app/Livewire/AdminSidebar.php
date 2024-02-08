@@ -46,6 +46,30 @@ class AdminSidebar extends Component
     // Aggiungi questo metodo
     public function serveDocument($filename)
     {
-    return Storage::disk('local')->response($filename);
+        return Storage::disk('local')->response($filename);
+    }
+    public function getDocumentFrontData($document)
+    {
+        return $this->getDocumentData($document);
+    }
+
+    public function getDocumentBackData($document)
+    {
+        return $this->getDocumentData($document);
+    }
+
+    protected function getDocumentData($document)
+    {
+        if (!$document) {
+            return null;
+        }
+
+        $documentData = base64_encode($document);
+        $info = getimagesizefromstring($document);
+
+        return $info ? [
+            'mime' => $info['mime'],
+            'data' => $documentData,
+        ] : null;
     }
 }
