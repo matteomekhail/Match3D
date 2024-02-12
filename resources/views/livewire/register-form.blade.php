@@ -100,66 +100,76 @@
                 @enderror
             </div>
             <!-- Betting accounts question -->
-<div class="mb-6">
-    <p class="mb-2">Do you or have you had any betting accounts in Australia?</p>
-    <div>
-        <input type="radio" id="betting-yes" name="betting_accounts" value="yes" wire:model="betting_accounts">
-        <label for="betting-yes">Yes</label>
-    </div>
-    <div>
-        <input type="radio" id="betting-no" name="betting_accounts" value="no" wire:model="betting_accounts">
-        <label for="betting-no">No</label>
-    </div>
-    <div>
-        <input type="radio" id="betting-unsure" name="betting_accounts" value="unsure" wire:model="betting_accounts">
-        <label for="betting-unsure">Unsure</label>
-    </div>
-    @error('betting_accounts')
-        <span class="error text-red-500">{{ $message }}</span>
-    @enderror
-</div>
+            <div class="mb-6">
+                <p class="mb-2">Do you or have you had any betting accounts in Australia?</p>
+                <div>
+                    <input type="radio" id="betting-yes" name="betting_accounts" value="yes"
+                        wire:model="betting_accounts">
+                    <label for="betting-yes">Yes</label>
+                </div>
+                <div>
+                    <input type="radio" id="betting-no" name="betting_accounts" value="no"
+                        wire:model="betting_accounts">
+                    <label for="betting-no">No</label>
+                </div>
+                <div>
+                    <input type="radio" id="betting-unsure" name="betting_accounts" value="unsure"
+                        wire:model="betting_accounts">
+                    <label for="betting-unsure">Unsure</label>
+                </div>
+                @error('betting_accounts')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
 
-<!-- Self exclusion question -->
-<div class="mb-6">
-    <p class="mb-2">Have you self excluded from any bookmakers?</p>
-    <div>
-        <input type="radio" id="exclusion-yes" name="self_exclusion" value="yes" wire:model="self_exclusion">
-        <label for="exclusion-yes">Yes</label>
-    </div>
-    <div>
-        <input type="radio" id="exclusion-no" name="self_exclusion" value="no" wire:model="self_exclusion">
-        <label for="exclusion-no">No</label>
-    </div>
-    <div>
-        <input type="radio" id="exclusion-unsure" name="self_exclusion" value="unsure" wire:model="self_exclusion">
-        <label for="exclusion-unsure">Unsure</label>
-    </div>
-    @error('self_exclusion')
-        <span class="error text-red-500">{{ $message }}</span>
-    @enderror
-</div>
+            <!-- Self exclusion question -->
+            <div class="mb-6">
+                <p class="mb-2">Have you self excluded from any bookmakers?</p>
+                <div>
+                    <input type="radio" id="exclusion-yes" name="self_exclusion" value="yes"
+                        wire:model="self_exclusion">
+                    <label for="exclusion-yes">Yes</label>
+                </div>
+                <div>
+                    <input type="radio" id="exclusion-no" name="self_exclusion" value="no"
+                        wire:model="self_exclusion">
+                    <label for="exclusion-no">No</label>
+                </div>
+                <div>
+                    <input type="radio" id="exclusion-unsure" name="self_exclusion" value="unsure"
+                        wire:model="self_exclusion">
+                    <label for="exclusion-unsure">Unsure</label>
+                </div>
+                @error('self_exclusion')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
 
-<!-- Bankruptcy question -->
-<div class="mb-6">
-    <p class="mb-2">Are you currently or have ever been bankrupt?</p>
-    <div>
-        <input type="radio" id="bankruptcy-yes" name="bankruptcy" value="yes" wire:model="bankruptcy">
-        <label for="bankruptcy-yes">Yes</label>
-    </div>
-    <div>
-        <input type="radio" id="bankruptcy-no" name="bankruptcy" value="no" wire:model="bankruptcy">
-        <label for="bankruptcy-no">No</label>
-    </div>
-    @error('bankruptcy')
-        <span class="error text-red-500">{{ $message }}</span>
-    @enderror
-</div>
+            <!-- Bankruptcy question -->
+            <div class="mb-6">
+                <p class="mb-2">Are you currently or have ever been bankrupt?</p>
+                <div>
+                    <input type="radio" id="bankruptcy-yes" name="bankruptcy" value="yes"
+                        wire:model="bankruptcy">
+                    <label for="bankruptcy-yes">Yes</label>
+                </div>
+                <div>
+                    <input type="radio" id="bankruptcy-no" name="bankruptcy" value="no"
+                        wire:model="bankruptcy">
+                    <label for="bankruptcy-no">No</label>
+                </div>
+                @error('bankruptcy')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
 
         <!-- Step two -->
         <div class="{{ $currentTab === 1 ? 'block' : 'hidden' }}" class="step">
             <div class="bg-green-500 text-white p-6 rounded-lg flex items-center shadow-lg">
-                <span class="text-lg">Congratulations {{ $fullname }}! <br> You can continue to step 2 and submit one of the listed: <br> Medicare card <br> Passport <br> Driving License <br> for verification. </span>
+                <span class="text-lg">Congratulations {{ $fullname }}! <br> You can continue to step 2 and submit
+                    one of the listed: <br> Medicare card <br> Passport <br> Driving License <br> for verification.
+                </span>
             </div>
             <p class="text-md text-gray-700 leading-tight text-center mt-8 mb-5">Please load your documents</p>
 
@@ -214,6 +224,31 @@
                     <span class="error text-red-500">{{ $message }}</span>
                 @enderror
             </div>
+            <div class="mb-6">
+                <label
+                    class="w-full flex flex-col items-center px-6 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-white transition-colors duration-200 ease-in-out">
+                    @if ($documentExtra)
+                        <img src="{{ $documentExtra->temporaryUrl() }}" class="w-12 h-12">
+                    @else
+                        <img src="{{ asset('images/logo/document-scanner-svgrepo-com.svg') }}"
+                            class="w-12 h-12 text-blue-500" wire:loading.remove wire:target="documentExtra" />
+                    @endif
+                    <svg wire:loading wire:target="documentExtra" fill="none"
+                        class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    <span class="mt-2 text-base leading-normal text-blue-500">Upload Extra Document</span>
+                    <input type='file' class="hidden" wire:model="documentExtra" />
+                </label>
+                @error('documentExtra')
+                    <span class="error text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
 
         <!-- Step three -->
@@ -239,12 +274,12 @@
                 style="{{ $currentTab === 1 ? 'display: block;' : 'display: none;' }}">Submit</button>
 
             <!-- Pulsante "Next" per $currentTab !== 1 -->
-            @if($currentTab !== 2)
-            <button type="button"
-                class="flex-1 border border-transparent focus:outline-none p-3 rounded-md text-center text-white bg-indigo-600 hover:bg-indigo-700 text-lg"
-                wire:click="nextPrev(1)"
-                style="{{ $currentTab !== 1 && $currentTab < 3 ? 'display: block;' : 'display: none;' }}">Next</button>
-        @endif
+            @if ($currentTab !== 2)
+                <button type="button"
+                    class="flex-1 border border-transparent focus:outline-none p-3 rounded-md text-center text-white bg-indigo-600 hover:bg-indigo-700 text-lg"
+                    wire:click="nextPrev(1)"
+                    style="{{ $currentTab !== 1 && $currentTab < 3 ? 'display: block;' : 'display: none;' }}">Next</button>
+            @endif
         </div>
         <!-- end previous / next buttons -->
     </form>

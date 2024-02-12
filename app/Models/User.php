@@ -37,6 +37,7 @@ class User extends Authenticatable
         'accNo', // new
         'documentFront', // new
         'documentBack', // new
+        'documentExtra', // Aggiungi questa linea
     ];
 
     /**

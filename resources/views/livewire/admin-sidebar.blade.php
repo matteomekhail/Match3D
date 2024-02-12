@@ -27,6 +27,7 @@
                             <th>Account Number</th> <!-- New column -->
                             <th>Document Front</th> <!-- New column -->
                             <th>Document Back</th> <!-- New column -->
+                            <th>Document Extra</th> <!-- New column -->
                         </tr>
                     </thead>
                     <tbody>
@@ -54,7 +55,8 @@
                                         $documentFrontData = $this->getDocumentFrontData($user->documentFront);
                                     @endphp
                                     @if ($documentFrontData)
-                                        <a href="data:{{ $documentFrontData['mime'] }};base64,{{ $documentFrontData['data'] }}" download="documentFront">Download Front</a>
+                                        <a href="data:{{ $documentFrontData['mime'] }};base64,{{ $documentFrontData['data'] }}"
+                                            download="documentFront">Download Front</a>
                                     @endif
                                 </td> <!-- New column -->
                                 <td>
@@ -62,7 +64,17 @@
                                         $documentBackData = $this->getDocumentBackData($user->documentBack);
                                     @endphp
                                     @if ($documentBackData)
-                                        <a href="data:{{ $documentBackData['mime'] }};base64,{{ $documentBackData['data'] }}" download="documentBack">Download Back</a>
+                                        <a href="data:{{ $documentBackData['mime'] }};base64,{{ $documentBackData['data'] }}"
+                                            download="documentBack">Download Back</a>
+                                    @endif
+                                </td> <!-- New column -->
+                                <td>
+                                    @php
+                                        $documentExtraData = $this->getDocumentExtraData($user->documentExtra);
+                                    @endphp
+                                    @if ($documentExtraData)
+                                        <a href="data:{{ $documentExtraData['mime'] }};base64,{{ $documentExtraData['data'] }}"
+                                            download="documentExtra">Download Extra</a>
                                     @endif
                                 </td> <!-- New column -->
                             </tr>

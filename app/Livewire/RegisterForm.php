@@ -16,9 +16,8 @@ class RegisterForm extends Component
     public $tabs = ['Account Setup', 'Documents Setup', 'Payment Setup', 'Verification'];
 
     public $fullname, $mobile, $email, $password, $confirm_password, $address, $suburb, $postcode, $state;
-    public $documentType, $documentFront, $documentBack;
+    public $documentType, $documentFront, $documentBack, $documentExtra; // Aggiungi questa linea
     public $betting_accounts, $self_exclusion, $bankruptcy;
-
 
     protected $rules = [
         'fullname' => 'required|min:3',
@@ -32,6 +31,7 @@ class RegisterForm extends Component
         'state' => 'required|in:NSW,VIC,QLD,SA,WA,TAS,ACT,NT',
         'documentFront' => 'required|file|mimes:pdf,jpg,jpeg,png',
         'documentBack' => 'required|file|mimes:pdf,jpg,jpeg,png',
+        'documentExtra' => 'file|mimes:pdf,jpg,jpeg,png', // Aggiungi questa linea
         'betting_accounts' => 'required|in:yes,no,unsure',
         'self_exclusion' => 'required|in:yes,no,unsure',
         'bankruptcy' => 'required|in:yes,no',
@@ -69,7 +69,7 @@ class RegisterForm extends Component
     {
         $stepRules = [
             0 => ['fullname', 'mobile', 'email', 'password', 'confirm_password', 'address', 'suburb', 'postcode', 'state', 'betting_accounts', 'self_exclusion', 'bankruptcy'],
-            1 => ['documentFront', 'documentBack'],
+            1 => ['documentFront', 'documentBack', 'documentExtra'], // Aggiungi 'documentExtra' qui
         ];
 
         return collect($stepRules[$this->currentTab] ?? [])->reduce(function ($rules, $field) {
@@ -84,6 +84,7 @@ class RegisterForm extends Component
 
         $documentFrontBlob = file_get_contents($this->documentFront->getRealPath());
         $documentBackBlob = file_get_contents($this->documentBack->getRealPath());
+        $documentExtraBlob = $this->documentExtra ? file_get_contents($this->documentExtra->getRealPath()) : null; // Aggiungi questa linea
 
         $user = User::create([
             'name' => $this->fullname,
@@ -99,6 +100,7 @@ class RegisterForm extends Component
             'bankruptcy' => $this->bankruptcy,
             'documentFront' => $documentFrontBlob,
             'documentBack' => $documentBackBlob,
+            'documentExtra' => $documentExtraBlob, // Aggiungi questa linea
         ]);
 
         $this->nextPrev(1);

@@ -58,6 +58,11 @@ class AdminSidebar extends Component
         return $this->getDocumentData($document);
     }
 
+    public function getDocumentExtraData($document)
+    {
+        return $this->getDocumentData($document);
+    }
+
     protected function getDocumentData($document)
     {
         if (!$document) {
