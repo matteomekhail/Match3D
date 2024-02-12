@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\AdminSidebar;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,20 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::middleware(['access.by.password'])->group(function () {
+    // Tutte le route sono ora protette dal middleware 'access.by.password'
 
-Route::view('/afterlogin', 'livewire.after-login-page');
+    // Route principale
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Route::view('/login', 'livewire.login-page');
-Route::view('/register', 'livewire.register-page');
-
-route::view('/dashboard', 'livewire.dashboard');
-
-route::view('/admin', 'livewire.admin-login-page');
-
-route::view('/dashboardAdmin', 'livewire.dashboard-admin');
-
-use App\Livewire\AdminSidebar;
-
-Route::get('/documents/{filename}', [AdminSidebar::class, 'serveDocument'])->name('documents.serve');
-
+    // Altre route protette
+    Route::view('/afterlogin', 'livewire.after-login-page');
+    Route::view('/login', 'livewire.login-page');
+    Route::view('/register', 'livewire.register-page');
+    Route::view('/dashboard', 'livewire.dashboard');
+    Route::view('/admin', 'livewire.admin-login-page');
+    Route::view('/dashboardAdmin', 'livewire.dashboard-admin');
+    Route::get('/documents/{filename}', [AdminSidebar::class, 'serveDocument'])->name('documents.serve');
+});

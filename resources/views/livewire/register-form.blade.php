@@ -159,7 +159,7 @@
         <!-- Step two -->
         <div class="{{ $currentTab === 1 ? 'block' : 'hidden' }}" class="step">
             <div class="bg-green-500 text-white p-6 rounded-lg flex items-center shadow-lg">
-                <span class="text-lg">Congratulations {{ $fullname }}! <br> You can continue to step 2 and submit your 100 points ID for verification. </span>
+                <span class="text-lg">Congratulations {{ $fullname }}! <br> You can continue to step 2 and submit one of the listed: <br> Medicare card <br> Passport <br> Driving License <br> for verification. </span>
             </div>
             <p class="text-md text-gray-700 leading-tight text-center mt-8 mb-5">Please load your documents</p>
 
